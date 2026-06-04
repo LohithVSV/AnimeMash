@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeMash-Battle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="home.html">
+        <img src="assets/logo.png" id="nav-logo" alt="AnimeMash">
+        </a>
+        <div class="nav-links">
+            <a href="leaderboard.html">Leaderboard</a>
+            <a href="profile.html">Profile</a>
+        </div>
+    </nav>
+    <div class="battle-arena">
+    <div class="character-card" id="card1">
+        <img id="char1-img" src="" alt="">
+        <h2 id="char1-name"></h2>
+        <p id="char1-bio"></p>
+        <button onclick="vote(1)">⚔️ Vote</button>
+    </div>
+
+    <div class="vs-text">VS</div>
+
+    <div class="character-card" id="card2">
+        <img id="char2-img" src="" alt="">
+        <h2 id="char2-name"></h2>
+        <p id="char2-bio"></p>
+        <button onclick="vote(2)">⚔️ Vote</button>
+    </div>
+    </div>
+    <a href="home.html" class="back-btn">Back to Home</a>
+    <script src="app.js"></script>
+</body>
+</html>

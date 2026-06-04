@@ -158,3 +158,82 @@ if (currentPage.includes('home.html')) {
     const username = localStorage.getItem('username');
     document.getElementById('username-display').textContent = username;
 }
+
+
+async function loadBattle(){
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = 'index.html';
+        return;
+    }
+    const response = await fetch('http://localhost:8000/battle', {
+        method: 'GET',
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await response.json();
+    window.char1Id = data.character1.id;
+    window.char2Id = data.character2.id;
+    document.getElementById('char1-img').src = data.character1.image_url;
+    document.getElementById('char1-name').textContent = data.character1.name;
+    document.getElementById('char1-bio').textContent = data.character1.bio;
+
+    document.getElementById('char2-img').src = data.character2.image_url;
+    document.getElementById('char2-name').textContent = data.character2.name;
+    document.getElementById('char2-bio').textContent = data.character2.bio;
+}
+
+async function vote(choice) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = 'index.html';
+        return;
+    }
+    const response = await fetch('http://localhost:8000/vote', {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+        winner_id: choice === 1 ? window.char1Id : window.char2Id,
+        loser_id: choice === 1 ? window.char2Id : window.char1Id
+        })
+    });
+    const data = await response.json();
+    if (response.ok) {
+        loadBattle(); // load next pair
+    } else {
+        alert(data.detail);
+}
+    }
+
+if (window.location.pathname.includes('battle.html')) {
+    loadBattle();
+}
+
+async function loadLeaderboard() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = 'index.html';
+        return;
+    }
+    const response = await fetch('http://localhost:8000/leaderboard', {
+        method: 'GET',
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await response.json();
+    const tbody = document.getElementById('leaderboard-body');
+    tbody.innerHTML = '';
+    data.forEach((entry, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${entry.character_name}</td>
+            <td>${entry.wins}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+if (window.location.pathname.includes('leaderboard.html')) {
+    loadLeaderboard();
+}

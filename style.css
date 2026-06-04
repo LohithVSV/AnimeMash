@@ -213,3 +213,100 @@ nav {
     background: #c084fc;
     box-shadow: 0 0 20px #c084fc80;
 }
+
+.battle-arena {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 40px;
+    min-height: 80vh;
+}
+
+.character-card {
+    background: #111;
+    border: 1px solid #6d28d9;
+    border-radius: 12px;
+    padding: 24px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 0 24px #6d28d940;
+}
+
+.character-card img {
+    width: 200px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.character-card h2 {
+    color: #c084fc;
+    letter-spacing: 2px;
+    margin: 12px 0;
+}
+
+.character-card p {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+}
+
+.character-card button {
+    padding: 10px 28px;
+    background: #6d28d9;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.character-card button:hover {
+    background: #c084fc;
+    box-shadow: 0 0 16px #c084fc80;
+}
+
+.vs-text {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #c084fc;
+    text-shadow: 0 0 20px #c084fc;
+}
+
+#leaderboard-table {
+    width: 60%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+#leaderboard-table th {
+    color: #c084fc;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    padding: 12px;
+    border-bottom: 2px solid #6d28d9;
+    text-align: left;
+}
+
+#leaderboard-table td {
+    padding: 12px;
+    color: white;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+#leaderboard-table tr:hover {
+    background: #1a1a2e;
+}
+
+h2 {
+    text-align: center;
+    color: #c084fc;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    margin: 30px 0;
+}

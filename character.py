@@ -27,13 +27,13 @@ async def battle():
     "character1": {
         "id": character1["mal_id"],
         "name": character1["name"],
-        "image_url": character1["images"]["webp"]["small_image_url"],
+        "image_url": character1["images"]["webp"]["image_url"],
         "bio": character1["about"][:200] + "..." if character1["about"] else "No bio available."
     },
     "character2": {
         "id": character2["mal_id"],
         "name": character2["name"],
-        "image_url": character2["images"]["webp"]["small_image_url"],
+        "image_url": character2["images"]["webp"]["image_url"],
         "bio": character2["about"][:200] + "..." if character2["about"] else "No bio available."
     }
     }
