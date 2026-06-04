@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap');
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #0a0a0a;
+    font-family: 'Rajdhani', sans-serif;
+    color: white;
+}
+
+nav h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #c084fc;
+    margin: 20px 0;
+    letter-spacing: 4px;
+}
+
+.auth-scene {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    gap: 120px;
+    position: relative;
+}
+
+.side-img {
+    width: 220px;
+    height: 280px;
+    object-fit: contain;
+}
+
+#auth-box {
+    background: #111;
+    border: 1px solid #6d28d9;
+    border-radius: 12px;
+    padding: 40px 36px;
+    width: 300px;
+    box-shadow: 0 0 24px #6d28d940;
+}
+
+#auth-box h2 {
+    margin: 0 0 24px 0;
+    font-size: 1.8rem;
+    color: #c084fc;
+    letter-spacing: 2px;
+}
+
+#auth-box h5 {
+    margin: 0 0 4px 0;
+    font-size: 0.85rem;
+    color: #a78bfa;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+#auth-box input {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    background: #1a1a2e;
+    border: 1px solid #4c1d95;
+    border-radius: 6px;
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+#auth-box input:focus {
+    outline: none;
+    border-color: #c084fc;
+    box-shadow: 0 0 8px #c084fc60;
+}
+
+#auth-box button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    background: #6d28d9;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#auth-box button:hover {
+    background: #c084fc;
+}
+
+#auth-box p {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+#auth-box p span {
+    color: #c084fc;
+    cursor: pointer;
+}
+
+#auth-box p span:hover {
+    text-decoration: underline;
+}
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #0a0a0a;
+    border-bottom: 1px solid #6d28d9;
+    padding: 10px 0;
+}
+
+#purple-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #9B30FF;
+    box-shadow: 0 0 60px #9B30FF, 0 0 120px #6A0DAD;
+    transition: transform 1s ease;
+    z-index: 999;
+}
+
+.ball-img {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+#purple-ball.spinning {
+    animation: spin 1s linear infinite;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+}
+
+#nav-logo {
+    height: 60px;
+}
+
+.nav-links a {
+    color: #c084fc;
+    text-decoration: none;
+    margin-left: 24px;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.home-content h2 {
+    font-size: 2.5rem;
+    color: #c084fc;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+}
+
+.home-content p {
+    font-size: 1.1rem;
+    color: #aaa;
+    max-width: 500px;
+    margin-bottom: 32px;
+}
+
+.home-content button {
+    padding: 14px 40px;
+    background: #6d28d9;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.home-content button:hover {
+    background: #c084fc;
+    box-shadow: 0 0 20px #c084fc80;
+}

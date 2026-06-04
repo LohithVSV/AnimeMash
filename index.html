@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimesMash</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <h1>⚔️ AnimeSmash ⚔️</h1>
+    </nav>
+    <div class="auth-scene">
+        <img src="assets/deathnote.png" id="left-char" class="side-img">
+
+        <div id="auth-box">
+    <!-- Login Form -->
+    <div id="login-form">
+        <h2>Login</h2>
+        <h5>enter username</h5>
+        <input type="text" id="login-username" placeholder="Username">
+        <h5>enter password</h5>
+        <input type="password" id="login-password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <p id="errorMsg" style="color: red;"></p>
+        <p>No account? <span onclick="toggleForm()">Register</span></p>
+    </div>
+
+    <!-- Register Form -->
+    <div id="register-form" style="display:none">
+        <h2>Register</h2>
+        <input type="text" id="reg-username" placeholder="Username">
+        <input type="email" id="reg-email" placeholder="Email">
+        <input type="password" id="reg-password" placeholder="Password">
+        <button onclick="register()">Register</button>
+        <p id="regerrorMsg" style="color: red;"></p>
+        <p>Have an account? <span onclick="toggleForm()">Login</span></p>
+    </div>
+        </div>
+        <img src="assets/demonslayer.png" id="right-char" class="side-img">
+        <!-- Animation images -->
+    <img src="assets/blueball.png" id="blue-ball" class="ball-img" style="display:none">
+    <img src="assets/redball.png" id="red-ball" class="ball-img" style="display:none">
+    <img src="assets/gojo.png" id="gojo-img" style="display:none; position:absolute; width:350px;">
+    <img src="assets/purpleball.png" id="purple-ball" style="display:none; position:absolute; width:120px;">
+        <div id="purple-overlay"></div>
+    </div>
+    <script src="app.js"></script>
+    
+</body>
+</html>
