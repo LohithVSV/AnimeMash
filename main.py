@@ -25,14 +25,14 @@ app.include_router(characters_router)
 from database import Base, engine
 Base.metadata.create_all(bind=engine)
 
-def get_current_user(token:str=Depends(oauth2_scheme),db:session=Depends(get_db)):
-    payload=verify_token(token)
+def get_current_user(token: str = Depends(oauth2_scheme), db: session = Depends(get_db)):
+    payload = verify_token(token)
     if payload is None:
-        raise HTTPException(status_code=401,detail="token invalid or expired")
-    username=payload.get("sub")
-    user=db.query(models.User).filter(models.User.username==username).first()
+        raise HTTPException(status_code=401, detail="token invalid or expired")
+    user_id = payload.get("sub")
+    user = db.query(models.User).filter(models.User.id == int(user_id)).first()
     if user is None:
-        raise HTTPException(status_code=401,detail="user not found")
+        raise HTTPException(status_code=401, detail="user not found")
     return user
 
 @app.post("/login")

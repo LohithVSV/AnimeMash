@@ -310,3 +310,83 @@ h2 {
     letter-spacing: 3px;
     margin: 30px 0;
 }
+
+#zenitsu-loader {
+    position: fixed;
+    top: 88px;  /* ← tweak this until his feet touch the line */
+    left: 0;
+    width: 100%;
+    height: 48px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+#zenitsu-track {
+    position: relative;
+    height: 50px;
+    overflow: hidden;
+}
+
+#zenitsu-run {
+    position: absolute;
+    top: -21px;
+    height: 42px;
+    left: 0%;
+    transition: left 0.3s ease;
+    transform: scaleX(-1);
+}
+
+#lightning-trail {
+    position: absolute;
+    top: 0px;  /* ← this should match the exact divider line position */
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(to right, transparent, #00cfff, #ffffff);
+    transition: width 0.3s ease;
+}
+@keyframes zenitsuRun {
+    0%   { left: -60px; }
+    100% { left: 100%; }
+}
+
+@keyframes trailGrow {
+    0%   { width: 0%; opacity: 1; }
+    80%  { width: 95%; opacity: 1; }
+    100% { width: 100%; opacity: 0; }
+}
+
+.logout-btn {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.logout-btn:hover {
+    background-color: #cc0000;
+}
+.profile-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+    gap: 20px;
+}
+
+.back-btn {
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    color: #ff4444;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.back-btn:hover {
+    text-decoration: underline;
+}

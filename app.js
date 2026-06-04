@@ -14,7 +14,8 @@ function toggleForm() {
 function startLoginAnimation() {
     const bgMusic = new Audio('assets/theme.mp3');
     bgMusic.currentTime = 13;
-    bgMusic.play();
+    bgMusic.play().catch(() => {});
+
     const leftChar = document.getElementById('left-char');
     const rightChar = document.getElementById('right-char');
     const authBox = document.getElementById('auth-box');
@@ -23,13 +24,11 @@ function startLoginAnimation() {
     const gojo = document.getElementById('gojo-img');
     const purpleBall = document.getElementById('purple-ball');
 
-    // hide original characters
     leftChar.style.transition = 'opacity 0.3s ease';
     rightChar.style.transition = 'opacity 0.3s ease';
     leftChar.style.opacity = '0';
     rightChar.style.opacity = '0';
 
-    // fade out auth box
     authBox.style.transition = 'opacity 0.5s ease';
     authBox.style.opacity = '0';
     authBox.style.pointerEvents = 'none';
@@ -40,7 +39,6 @@ function startLoginAnimation() {
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
 
-    // red ball starts at left (death note position)
     redBall.style.display = 'block';
     redBall.style.position = 'fixed';
     redBall.style.width = ballSize + 'px';
@@ -52,7 +50,6 @@ function startLoginAnimation() {
     redBall.style.transition = 'none';
     redBall.style.zIndex = '1000';
 
-    // blue ball starts at right (demon slayer position)
     blueBall.style.display = 'block';
     blueBall.style.position = 'fixed';
     blueBall.style.width = ballSize + 'px';
@@ -64,7 +61,6 @@ function startLoginAnimation() {
     blueBall.style.transition = 'none';
     blueBall.style.zIndex = '1000';
 
-    // gojo appears immediately when balls appear
     gojo.style.display = 'block';
     gojo.style.position = 'fixed';
     gojo.style.width = '350px';
@@ -75,21 +71,17 @@ function startLoginAnimation() {
     gojo.style.zIndex = '999';
     setTimeout(() => gojo.style.opacity = '1', 50);
 
-    // fly toward each other — tip to tip
     setTimeout(() => {
         redBall.style.transition = 'left 1.3s ease';
         blueBall.style.transition = 'left 1.3s ease';
-
         redBall.style.left = (screenCenterX - ballSize + 25) + 'px';
         blueBall.style.left = (screenCenterX - 25) + 'px';
     }, 400);
 
-    // collision — hide balls, show purple
     setTimeout(() => {
         redBall.style.display = 'none';
         blueBall.style.display = 'none';
 
-        // purple ball at collision point
         purpleBall.style.display = 'block';
         purpleBall.style.position = 'fixed';
         purpleBall.style.width = '225px';
@@ -104,6 +96,19 @@ function startLoginAnimation() {
         purpleBall.classList.add('spinning');
         setTimeout(() => purpleBall.style.opacity = '1', 50);
 
+        setTimeout(() => {
+            purpleBall.style.transition = 'all 0.6s ease';
+            purpleBall.style.width = '300vw';
+            purpleBall.style.height = '300vw';
+            purpleBall.style.left = (centerX - 150 * window.innerWidth / 100) + 'px';
+            purpleBall.style.top = (centerY - 150 * window.innerWidth / 100) + 'px';
+            purpleBall.style.borderRadius = '50%';
+        }, 800);
+
+        setTimeout(() => {
+            window.location.href = 'home.html';
+        }, 1600);
+
     }, 1800);
 }
 
@@ -112,9 +117,9 @@ async function login() {
     const password = document.getElementById('login-password').value;
 
     const response = await fetch('http://localhost:8000/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `username=${username}&password=${password}`
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `username=${username}&password=${password}`
     });
 
     const data = await response.json();
@@ -122,7 +127,7 @@ async function login() {
     if (response.ok) {
         localStorage.setItem('token', data.access_token);
         localStorage.setItem('username', username);
-        window.location.href = 'home.html';
+        startLoginAnimation();
     } else {
         document.getElementById("errorMsg").textContent = data.detail;
         document.getElementById("errorMsg").style.display = "block";
@@ -130,15 +135,16 @@ async function login() {
 }
 
 async function register() {
-    const username= document.getElementById('reg-username').value;
-    const email=document.getElementById("reg-email").value;
+    const username = document.getElementById('reg-username').value;
+    const email = document.getElementById("reg-email").value;
     const password = document.getElementById('reg-password').value;
 
     const response = await fetch('http://localhost:8000/users', {
-        method:'POST',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({username:username,email: email, password: password})
-    })
+        body: JSON.stringify({ username: username, email: email, password: password })
+    });
+
     if (response.ok) {
         alert('Registration successful! Please log in.');
         toggleForm();
@@ -147,20 +153,65 @@ async function register() {
         document.getElementById("regerrorMsg").textContent = data.detail;
         document.getElementById("regerrorMsg").style.display = "block";
     }
-};
+}
 
 const currentPage = window.location.pathname;
 
 if (currentPage.includes('home.html')) {
     const token = localStorage.getItem('token');
     if (!token) window.location.href = 'index.html';
-
     const username = localStorage.getItem('username');
     document.getElementById('username-display').textContent = username;
 }
 
+let loaderInterval = null;
 
-async function loadBattle(){
+function showLoader() {
+    const loader = document.getElementById('zenitsu-loader');
+    const trail = document.getElementById('lightning-trail');
+    const zenitsu = document.getElementById('zenitsu-run');
+    if (!loader) return;
+
+    loader.style.display = 'block';
+    let progress = 0;
+    trail.style.width = '0%';
+    zenitsu.style.left = '0%';
+
+    // slowly crawl to 65%
+    loaderInterval = setInterval(() => {
+        if (progress < 65) {
+            progress += 0.4;
+            trail.style.width = progress + '%';
+            zenitsu.style.left = progress + '%';
+        }
+    }, 30);
+}
+
+function hideLoader() {
+    const loader = document.getElementById('zenitsu-loader');
+    const trail = document.getElementById('lightning-trail');
+    const zenitsu = document.getElementById('zenitsu-run');
+    if (!loader) return;
+
+    clearInterval(loaderInterval);
+
+    // sprint to 100%
+    trail.style.transition = 'width 0.4s ease';
+    zenitsu.style.transition = 'left 0.4s ease';
+    trail.style.width = '100%';
+    zenitsu.style.left = '100%';
+
+    setTimeout(() => {
+        loader.style.display = 'none';
+        trail.style.width = '0%';
+        zenitsu.style.left = '0%';
+        trail.style.transition = 'width 0.3s ease';
+        zenitsu.style.transition = 'left 0.3s ease';
+    }, 450);
+}
+
+async function loadBattle() {
+    showLoader();
     const token = localStorage.getItem('token');
     if (!token) {
         window.location.href = 'index.html';
@@ -176,13 +227,14 @@ async function loadBattle(){
     document.getElementById('char1-img').src = data.character1.image_url;
     document.getElementById('char1-name').textContent = data.character1.name;
     document.getElementById('char1-bio').textContent = data.character1.bio;
-
     document.getElementById('char2-img').src = data.character2.image_url;
     document.getElementById('char2-name').textContent = data.character2.name;
     document.getElementById('char2-bio').textContent = data.character2.bio;
+    hideLoader();
 }
 
 async function vote(choice) {
+    showLoader();
     const token = localStorage.getItem('token');
     if (!token) {
         window.location.href = 'index.html';
@@ -190,28 +242,30 @@ async function vote(choice) {
     }
     const response = await fetch('http://localhost:8000/vote', {
         method: 'POST',
-        headers: { 
+        headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-        winner_id: choice === 1 ? window.char1Id : window.char2Id,
-        loser_id: choice === 1 ? window.char2Id : window.char1Id
+            winner_id: choice === 1 ? window.char1Id : window.char2Id,
+            loser_id: choice === 1 ? window.char2Id : window.char1Id
         })
     });
     const data = await response.json();
     if (response.ok) {
-        loadBattle(); // load next pair
+        await loadBattle();
     } else {
+        hideLoader();
         alert(data.detail);
-}
     }
+}
 
 if (window.location.pathname.includes('battle.html')) {
     loadBattle();
 }
 
 async function loadLeaderboard() {
+    showLoader();
     const token = localStorage.getItem('token');
     if (!token) {
         window.location.href = 'index.html';
@@ -233,7 +287,21 @@ async function loadLeaderboard() {
         `;
         tbody.appendChild(row);
     });
+    hideLoader();
 }
+
 if (window.location.pathname.includes('leaderboard.html')) {
     loadLeaderboard();
+}
+
+function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    window.location.href = 'index.html';
+}
+
+if (window.location.pathname.includes('profile.html')) {
+    const token = localStorage.getItem('token');
+    if (!token) window.location.href = 'index.html';
+    document.getElementById('profile-username').textContent = localStorage.getItem('username');
 }
