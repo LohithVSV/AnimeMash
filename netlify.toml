@@ -1,0 +1,8 @@
+[build]
+  publish = "."
+  ignore = "exit 0"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
