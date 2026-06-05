@@ -8,3 +8,4 @@ SQLAlchemy==2.0.50
 uvicorn==0.34.0
 python-multipart==0.0.20
 psycopg2-binary==2.9.10
+email-validator==2.2.0
