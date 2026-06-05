@@ -45,7 +45,7 @@ function startLoginAnimation() {
     redBall.style.height = ballSize + 'px';
     redBall.style.borderRadius = '50%';
     redBall.style.objectFit = 'cover';
-    redBall.style.left = '0px';
+    redBall.style.left = '25px';
     redBall.style.top = ballY + 'px';
     redBall.style.transition = 'none';
     redBall.style.zIndex = '1000';
@@ -56,7 +56,7 @@ function startLoginAnimation() {
     blueBall.style.height = ballSize + 'px';
     blueBall.style.borderRadius = '50%';
     blueBall.style.objectFit = 'cover';
-    blueBall.style.left = '662px';
+    blueBall.style.left = '990px';
     blueBall.style.top = ballY + 'px';
     blueBall.style.transition = 'none';
     blueBall.style.zIndex = '1000';
