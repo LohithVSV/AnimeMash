@@ -1,5 +1,3 @@
-Yeah, just paste this straight into your `README.md`:
-
 ---
 
 # AnimeMash 🎌
