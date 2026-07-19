@@ -116,7 +116,7 @@ async function login() {
     const username = document.getElementById('login-username').value;
     const password = document.getElementById('login-password').value;
 
-    const response = await fetch('https://animemash-production.up.railway.app/login', {
+    const response = await fetch('https://animemash-lwty.onrender.com/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `username=${username}&password=${password}`
@@ -139,7 +139,7 @@ async function register() {
     const email = document.getElementById("reg-email").value;
     const password = document.getElementById('reg-password').value;
 
-    const response = await fetch('https://animemash-production.up.railway.app/users', {
+    const response = await fetch('https://animemash-lwty.onrender.com/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: username, email: email, password: password })
@@ -217,7 +217,7 @@ async function loadBattle() {
         window.location.href = 'index.html';
         return;
     }
-    const response = await fetch('https://animemash-production.up.railway.app/battle', {
+    const response = await fetch('https://animemash-lwty.onrender.com/battle', {
         method: 'GET',
         headers: { 'Authorization': `Bearer ${token}` }
     });
@@ -240,7 +240,7 @@ async function vote(choice) {
         window.location.href = 'index.html';
         return;
     }
-    const response = await fetch('https://animemash-production.up.railway.app/vote', {
+    const response = await fetch('https://animemash-lwty.onrender.com/vote', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -271,7 +271,7 @@ async function loadLeaderboard() {
         window.location.href = 'index.html';
         return;
     }
-    const response = await fetch('https://animemash-production.up.railway.app/leaderboard', {
+    const response = await fetch('https://animemash-lwty.onrender.com/leaderboard', {
         method: 'GET',
         headers: { 'Authorization': `Bearer ${token}` }
     });
