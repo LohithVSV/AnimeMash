@@ -8,34 +8,45 @@ from fastapi.security import OAuth2PasswordBearer
 from database import get_db
 from models import voting_characters
 from sqlalchemy.orm import Session
+import asyncio
     
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 router=APIRouter()
 
+async def fetch_character(client: httpx.AsyncClient, retries: int = 3):
+    for attempt in range(retries):
+        res = await client.get("https://api.jikan.moe/v4/random/characters")
+        if res.status_code == 200:
+            return res.json()["data"]
+        if res.status_code == 429:
+            await asyncio.sleep(1.5 * (attempt + 1))  # back off and retry
+            continue
+        break  # non-429 failure, no point retrying
+    raise HTTPException(status_code=502, detail="Jikan API unavailable, please retry")
+
+
 @router.get("/battle")
 async def battle():
-    async with httpx.AsyncClient() as client:
-        res1 = await client.get("https://api.jikan.moe/v4/random/characters")
-        res2 = await client.get("https://api.jikan.moe/v4/random/characters")
-    if res1.status_code != 200 or res2.status_code != 200:
-        raise HTTPException(status_code=500, detail="Failed to fetch character data")
-    character1 = res1.json()["data"]
-    character2 = res2.json()["data"]
+    async with httpx.AsyncClient(timeout=10) as client:
+        character1 = await fetch_character(client)
+        await asyncio.sleep(0.4)  # stay under Jikan's rate limit
+        character2 = await fetch_character(client)
+
     return {
-    "character1": {
-        "id": character1["mal_id"],
-        "name": character1["name"],
-        "image_url": character1["images"]["webp"]["image_url"],
-        "bio": character1["about"][:200] + "..." if character1["about"] else "No bio available."
-    },
-    "character2": {
-        "id": character2["mal_id"],
-        "name": character2["name"],
-        "image_url": character2["images"]["webp"]["image_url"],
-        "bio": character2["about"][:200] + "..." if character2["about"] else "No bio available."
-    }
+        "character1": {
+            "id": character1["mal_id"],
+            "name": character1["name"],
+            "image_url": character1["images"]["webp"]["image_url"],
+            "bio": character1["about"][:200] + "..." if character1["about"] else "No bio available."
+        },
+        "character2": {
+            "id": character2["mal_id"],
+            "name": character2["name"],
+            "image_url": character2["images"]["webp"]["image_url"],
+            "bio": character2["about"][:200] + "..." if character2["about"] else "No bio available."
+        }
     }
 
 
